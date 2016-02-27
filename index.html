@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Green Bean Casserole | FRC 1736</title>
+        <meta name="description" content="This is the FRC 1736 Scouting Application, for use in the 2013 Ultimate Ascent game">
+        <meta name="vieport" content="width=device-width">
+        
+        <link rel="stylesheet" href="css/main.css">
+
+        <style type="text/css">
+            #div1, #div2
+            {float:left; width:64px; height:64px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+        </style>
+        
+        <script type="text/javascript" src="./js/GreenBean_JS.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        
+    </head>
+    <body>        
+        <h1>Green Bean Casserole: Match Scouting System</h1>
+        <ul class='tabs'>
+            <li><a href='#MatchData'>Match Info</a></li>
+            <li><a href='#AutonomousData'>Autonomous</a></li>
+            <li><a href='#TeleopData'>Teleop</a></li>
+            <li><a href='#EndData'>End Game</a></li>
+            <li><a href='#PostMatch'>Post Match</a></li>
+            <li><a href='#MatchHistory' id="MatchHistoryLink">Match History</a></li>
+            <li><a href='#About'>About</a></li>
+        </ul>
+        <div id="MatchData">
+            <!-- ------------------------------ -->
+            <!-- ----------Match Data---------- -->
+            <!-- ------------------------------ -->
+            <div id="MatchDataStrings">
+                Scout Name<br>
+                Team Number<br>
+                Match Number<br>
+                Match Type
+            </div>
+            <div id="MatchDataValues">
+                <input type="text" name="scout_name_in" id="scout_name_in" placeholder="*"><br>
+                <input type="tel" name="team_number_in" id="team_number_in" placeholder="0"><br>
+                <input type="tel" name="match_number_in" id="match_number_in" placeholder="0"><br>
+                <select name="match_type" id="match_type">
+                  <option value="Qualification">Qualification</option>
+                  <option value="Practice">Practice</option>
+                  <option value="Elimination">Elimination</option>
+                  <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="AutonomousData">
+            <!-- ------------------------------------- -->
+            <!-- ----------Autonomous Period---------- -->
+            <!-- ------------------------------------- -->
+
+            <!-- Need to add starting location selector here -->
+            <div id="DiscsAndPoints">
+                Starting Disks: <input name="starting_disks" id="starting_disks" type="number" min="0" max="3" value="0">
+                <br>
+                Floor Pickup: <input name="floor_pickup" id="floor_pickup" type="number" min="0" max="99" value="0">
+                <br>
+                Made:
+                    <button onclick="Disk_Score('autonomous', 'make', 'high');">High Goal</button>
+                    <button onclick="Disk_Score('autonomous', 'make', 'mid');">Mid Goal</button>
+                    <button onclick="Disk_Score('autonomous', 'make', 'low');">Low Goal</button>
+                <br>
+                Missed:
+                    <button onclick="Disk_Score('autonomous', 'miss', 'high');">High Goal</button>
+                    <button onclick="Disk_Score('autonomous', 'miss', 'mid');">Mid Goal</button>
+                    <button onclick="Disk_Score('autonomous', 'miss', 'low');">Low Goal</button>
+                <br>
+                Points Scored: <a id="auto_pts_display">0</a>
+                <br>
+                Points Missed: <a id="auto_miss_display">0</a>
+                <br>
+                <button onclick="Undo_Score('autonomous');">Undo</button>
+                <br>
+                <button onclick="Penalty('penalty');">Penalty</button>
+                <button onclick="Penalty('technical');">Technical Foul</button>
+                <br>
+                <a>Penalties :  </a><a id="penalty_display1">0</a>
+                <br>
+                <a>Technical Fouls :  </a><a id="technical_display1">0</a>
+                <br>
+                <button onclick="Undo_Penalty();">Undo Penalty</button>
+            </div>
+            <div id="StartLocation">
+                <img src="img/Pyramid_Top.jpg">
+                <br>
+                Starting Location :  
+                <select name="Location" id="Location">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="TeleopData">
+            <!-- --------------------------------------- -->
+            <!-- ----------Teleoperated Period---------- -->
+            <!-- --------------------------------------- -->
+
+            <div id="ShootingData">
+                <form name="frm_shooting_location" id="frm_shooting_location">
+                    Shooting Location:<br>
+                    <input type="checkbox" name="shooting_location" id="Front_shoot">Front Court<br>
+                    <input type="checkbox" name="shooting_location" id="Full_shoot">Full Court<br>
+                </form>
+
+                <form name="frm_loading_location" id="frm_loading_location">
+                    Disk Loading Location:<br>
+                    <input type="checkbox" name="loading_location" id="Human_load">Human Loading<br>
+                    <input type="checkbox" name="loading_location" id="Floor_load">Floor Pickup<br>
+                </form>
+
+                <div id="TeleopMade">Made:
+                    <button onclick="Disk_Score('teleop', 'make', 'high');">High Goal</button>
+                    <button onclick="Disk_Score('teleop', 'make', 'mid');">Mid Goal</button>
+                    <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal</button>
+                    <button onclick="Disk_Score('teleop', 'make', 'pyramid');">Pyramid</button>
+                </div>
+                <div id="TeleopMissed">Missed:
+                    <button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
+                    <button onclick="Disk_Score('teleop', 'miss', 'mid');">Mid Goal</button>
+                    <button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
+                    <button onclick="Disk_Score('teleop', 'miss', 'pyramid');">Pyramid</button>
+                </div>
+                Points Scored: <a id="tele_pts_display">0</a>
+                <br>
+                Points Missed: <a id="tele_miss_display">0</a>
+                <br>
+                <button onclick="Undo_Score('teleop');">Undo</button>
+                <br>
+                <button onclick="Penalty('penalty');">Penalty</button>
+                <button onclick="Penalty('technical');">Technical Foul</button>
+                <br>
+                <a>Penalties :  </a><a id="penalty_display2">0</a>
+                <br>
+                <a>Technical Fouls :  </a><a id="technical_display2">0</a>
+                <br>
+                <button onclick="Undo_Penalty();">Undo Penalty</button>
+            </div>
+            
+            <div id="TeleopSliders">
+                <a>How's My Driving? :  </a>
+                <a id="tele_driving_display">Little or No Movement</a>
+                <div id="shortslider">
+                    <input class="bar" type="range" id ="driving_ability" name="driving_ability" min="0" max="3" value ="0" onchange="Update_Stuff();">
+                    <span class="highlight"></span>
+                </div>
+                
+                <form name="frm_drive_under_pyramid">
+                    <input type="checkbox" name="drive_under_pyramid" id="drive_under_pyramid">Can Drive Under Pyramid<br></form>
+                <br>
+                
+                <a>On-Robot Defense Effectiveness :  </a>
+                <a id="tele_robot_block_display">Awful / None</a>
+                <div id="shortslider">
+                    <input class="bar" type="range" id ="robot_block" name="robot_block" min="0" max="3" value ="0" onchange="Update_Stuff();">
+                    <span class="highlight"></span>
+                </div>
+                
+                <a>On-Robot Defense Time    :  </a>
+                <a id="tele_robot_block_time_display">0</a> seconds
+                <div id="slider">
+                    <input class="bar" type="range" id ="robot_block_time" name="robot_block_time" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                    <span class="highlight"></span>
+                </div>
+                
+                <a>Disk Blocking Effectiveness :  </a>
+                <a id="tele_disk_block_display">0% - 20% / None</a>
+                <div id="slider">
+                    <input class="bar" type="range" id ="disk_block" name="disk_block" min="0" max="4" value ="0" onchange="Update_Stuff();">
+                    <span class="highlight"></span>
+                </div>
+                
+                <a>Disk Blocking Time :  </a>
+                <a id="tele_disk_block_time_display">0</a> seconds
+                <div id="slider">
+                    <input class="bar" type="range" id ="disk_block_time" name="disk_block_time" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                    <span class="highlight"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="EndData">
+            <!-- ------------------------------ -->
+            <!-- ----------End Period---------- -->
+            <!-- ------------------------------ -->
+
+             
+            <div id="EndButtons">
+                Made:
+                <button onclick="Disk_Score('end', 'make', 'pyramid');">Pyramid</button>
+                Missed:
+                <button onclick="Disk_Score('end', 'miss', 'pyramid');">Pyramid</button>
+                <br>
+                Points Scored :  <a id="end_pts_display">0</a>
+                <br>
+                Points Missed :  <a id="end_miss_display">0</a>
+                <br>
+                <button onclick="Undo_Score('end');">Undo</button>
+                <br>
+                <button onclick="Penalty('penalty');">Penalty</button>
+                <button onclick="Penalty('technical');">Technical Foul</button>
+                <br>
+                <a>Penalties :  </a><a id="penalty_display3">0</a>
+                <br>
+                <a>Technical Fouls :  </a><a id="technical_display3">0</a>
+                <br>
+                <button onclick="Undo_Penalty();">Undo Penalty</button>
+            </div>
+            
+            <div id="EndSliders">
+                Climb Level :  
+                <a id="end_climb_display">0</a>
+                <div id="shortslider">
+                   <input class="bar" type="range" id ="climb_level" name="climb_level" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
+                   <span class="highlight"></span>
+               </div>
+
+               Climb Level Attempted :  
+               <a id="end_climb_attempt">0</a>
+               <div id="shortslider">
+                   <input class="bar" type="range" id ="climb_attempt" name="climb_attempt" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
+                   <span class="highlight"></span>
+               </div>
+               Climb Speed :  
+               <a id="end_climb_speed_display">0</a> seconds
+               <div id="slider">
+                   <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                   <span class="highlight"></span>
+               </div>
+            </div>
+            
+        </div>
+
+        <div id="PostMatch">
+            <!-- ----------------------------- -->
+            <!-- ----------Post Match--------- -->
+            <!-- ----------------------------- -->
+            
+            <textarea placeholder="Comments" id="Comments"></textarea>
+            <br>
+            <button id="SubmitReport" onclick="Submit_Report();">Submit Report</button>
+            
+        </div>
+        <div id="MatchHistory">
+            <textarea id="HistoryCSV"></textarea>
+            <br>
+            <button onclick="$('#HistoryPass').show(100,null);">Clear History</button>
+            <div id="HistoryPass">
+                Enter Password to Clear: <input type="text" id="history_password" placeholder="Password">
+                <br>
+                <button onclick="Clear_History();">Confirm</button>
+            </div>
+        </div>
+        <div id="About">
+            This scouting tool was created by FRC Team 1736 Mentors Andrew Gurik and Nick Dunne, with content and design considerations by Tim Delaney.
+        </div>
+        <script type="text/javascript">
+            $('ul.tabs').each(function(){
+                // For each set of tabs, we want to keep track of
+                // which tab is active and it's associated content
+                var $active, $content, $links = $(this).find('a');
+
+                // If the location.hash matches one of the links, use that as the active tab.
+                // If no match is found, use the first link as the initial active tab.
+                $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+                $active.addClass('active');
+                $content = $($active.attr('href'));
+
+                // Hide the remaining content
+                $links.not($active).each(function () {
+                    $($(this).attr('href')).hide();
+                });
+
+                // Bind the click event handler
+                $(this).on('click', 'a', function(e){
+                    // Make the old tab inactive.
+                    $active.removeClass('active');
+                    $content.hide();
+
+                    // Update the variables with the new link and content
+                    $active = $(this);
+                    $content = $($(this).attr('href'));
+
+                    // Make the tab active.
+                    $active.addClass('active');
+                    $content.show();
+
+                    // Prevent the anchor's default click action
+                    e.preventDefault();
+                });
+            });
+            $("#HistoryPass").hide(0,null);
+            document.getElementById("MatchHistoryLink").onclick = function (){
+                var existingData = localStorage.getItem("MatchData");
+                document.getElementById("HistoryCSV").value = existingData == null ? "" : existingData;
+            };
+        </script>
+    </body>
+</html>
