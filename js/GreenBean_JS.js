@@ -13,11 +13,9 @@
 
 
 /* constructor for goals_t objects */
-function goal_t(pyramid, high, mid, low, points)
+function goal_t(high, low, points)
 {
-    this.pyramid = pyramid;
     this.high = high;
-    this.mid = mid;
     this.low = low;
     this.points = points;
 }
@@ -32,18 +30,15 @@ function goal_t(pyramid, high, mid, low, points)
 
 /* autonomous */
     var auto_goals = new Array();
-    auto_goals[0] = new goal_t(0,0,0,0,0);
-    auto_goals[1] = new goal_t(0,0,0,0,0);
+    auto_goals[0] = new goal_t(0,0,0);
+    auto_goals[1] = new goal_t(0,0,0);
 
-    var auto_starting_disks = 0;
-    var auto_floor_disks = 0;
-    
     var auto_score_stack = new Array();
 
 /* teleoperated */
     var tele_goals = new Array();
-    tele_goals[0] = new goal_t(0,0,0,0,0);
-    tele_goals[1] = new goal_t(0,0,0,0,0);
+    tele_goals[0] = new goal_t(0,0,0);
+    tele_goals[1] = new goal_t(0,0,0);
     
     var tele_front_court = 0;
     var tele_full_court = 0;
@@ -60,8 +55,8 @@ function goal_t(pyramid, high, mid, low, points)
 
 /* end game */
     var end_goals = new Array();
-    end_goals[0] = new goal_t(0,0,0,0,0);
-    end_goals[1] = new goal_t(0,0,0,0,0);
+    end_goals[0] = new goal_t(0,0,0);
+    end_goals[1] = new goal_t(0,0,0);
     
     var end_climb_level = new Array();
     end_climb_level[0] = 0;
@@ -82,8 +77,7 @@ function goal_t(pyramid, high, mid, low, points)
 function update_data()
 {
     /* autonomous data */
-        auto_starting_disks = document.getElementById('starting_disks').value;
-        auto_floor_disks = document.getElementById('floor_pickup').value;
+
     
     /* teleop data */
         tele_front_court = document.frm_shooting_location.shooting_location[0];
@@ -215,10 +209,8 @@ function update_points()
 function sum_points(var_config)
 {
     /* sum disk points */
-    var_config.points = 5 * var_config.pyramid +
-                        3 * var_config.high +
-                        2 * var_config.mid +
-                        1 * var_config.low;
+    var_config.points = 5 * var_config.high +
+                        2 * var_config.low;
                 
     /* double points in auton */
     if (var_config === auto_goals[0] || var_config === auto_goals[1] )
@@ -293,8 +285,6 @@ function save_data()
     matchData += document.getElementById("team_number_in").value + ",";
     matchData += document.getElementById("match_number_in").value + ",";
     matchData += document.getElementById("match_type").value + ",";
-    matchData += auto_starting_disks + ",";
-    matchData += auto_floor_disks + ",";
     matchData += document.getElementById("auto_pts_display").innerHTML + ",";
     matchData += document.getElementById("auto_miss_display").innerHTML + ",";
     matchData += document.getElementById("Location").value + ",";
@@ -305,7 +295,6 @@ function save_data()
     matchData += document.getElementById("tele_pts_display").innerHTML + ",";
     matchData += document.getElementById("tele_miss_display").innerHTML + ",";
     matchData += tele_driving + ",";
-    matchData += (document.getElementById("drive_under_pyramid").checked ? "T" : "F") + ",";
     matchData += tele_disk_block + ",";
     matchData += tele_robot_block + ",";
     matchData += tele_disk_block_time + ",";
@@ -336,23 +325,20 @@ function reset_form()
 {
     document.getElementById("team_number_in").value = "";
     document.getElementById("match_number_in").value = "";
-    document.getElementById("starting_disks").value = 0;
     document.getElementById("floor_pickup").value = 0;
     
     auto_score_stack = new Array();
     document.getElementById("Location").value = "A";
-    auto_goals[0] = new goal_t(0,0,0,0,0);
-    auto_goals[1] = new goal_t(0,0,0,0,0);
-    auto_starting_disks = 0;
-    auto_floor_disks = 0;
+    auto_goals[0] = new goal_t(0,0,0);
+    auto_goals[1] = new goal_t(0,0,0);
     
     tele_score_stack = new Array();
     document.getElementById("Front_shoot").checked = false;
     document.getElementById("Full_shoot").checked = false;
     document.getElementById("Human_load").checked = false;
     document.getElementById("Floor_load").checked = false;
-    tele_goals[0] = new goal_t(0,0,0,0,0);
-    tele_goals[1] = new goal_t(0,0,0,0,0);
+    tele_goals[0] = new goal_t(0,0,0);
+    tele_goals[1] = new goal_t(0,0,0);
     tele_front_court = 0;
     tele_full_court = 0;
     tele_human_loading = 0;    
@@ -362,14 +348,13 @@ function reset_form()
     tele_disk_block_time = 0;
     tele_robot_block_time = 0;
     document.getElementById("driving_ability").value = 0;
-    document.getElementById("drive_under_pyramid").checked = false;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
     document.getElementById("disk_block").value = 0;
     document.getElementById("disk_block_time").value = 0;
     end_score_stack = new Array();
-    end_goals[0] = new goal_t(0,0,0,0,0);
-    end_goals[1] = new goal_t(0,0,0,0,0);
+    end_goals[0] = new goal_t(0,0,0);
+    end_goals[1] = new goal_t(0,0,0);
     end_climb_level[0] = 0;
     end_climb_level[1] = 0;
     end_climb_speed = 0;

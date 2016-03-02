@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Green Bean Casserole | FRC 1736</title>
-        <meta name="description" content="This is the FRC 1736 Scouting Application, for use in the 2013 Ultimate Ascent game">
+        <meta name="description" content="This is the FRC 1736 Scouting Application, for use in the 2016 Stronghold game">
         <meta name="vieport" content="width=device-width">
         
         <link rel="stylesheet" href="css/main.css">
@@ -63,18 +63,14 @@
 
             <!-- Need to add starting location selector here -->
             <div id="DiscsAndPoints">
-                Starting Disks: <input name="starting_disks" id="starting_disks" type="number" min="0" max="3" value="0">
-                <br>
-                Floor Pickup: <input name="floor_pickup" id="floor_pickup" type="number" min="0" max="99" value="0">
-                <br>
+            <input type="checkbox" name="spy" value="Spy">Used a spy<br>
+            <input type="checkbox" name="autodrive" value="Drove">Drove to the defense<br>
                 Made:
                     <button onclick="Disk_Score('autonomous', 'make', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('autonomous', 'make', 'mid');">Mid Goal</button>
                     <button onclick="Disk_Score('autonomous', 'make', 'low');">Low Goal</button>
                 <br>
                 Missed:
                     <button onclick="Disk_Score('autonomous', 'miss', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('autonomous', 'miss', 'mid');">Mid Goal</button>
                     <button onclick="Disk_Score('autonomous', 'miss', 'low');">Low Goal</button>
                 <br>
                 Points Scored: <a id="auto_pts_display">0</a>
@@ -91,30 +87,25 @@
                 <a>Technical Fouls :  </a><a id="technical_display1">0</a>
                 <br>
                 <button onclick="Undo_Penalty();">Undo Penalty</button>
+                <br/>
+
+
+
+                <select>
+  					<option value="Low">Low Bar</option>
+ 					<option value="Chival">Chival de Frise</option>
+  					<option value="Drawbridge">Drawbridge</option>
+  					<option value="Sally Port">Sally Port</option>
+  					<option value="Rough Terrain">Rough Terrain</option>
+  					<option value="Moat">Moat</option>
+  					<option value="Rocks">Rock Wall</option>
+  					<option value="Portcullis">Portcullis</option>
+  					<option value="Ramparts">Ramparts</option>
+				</select>
+
             </div>
-            <div id="StartLocation">
-                <img src="img/Pyramid_Top.jpg">
-                <br>
-                Starting Location :  
-                <select name="Location" id="Location">
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                    <option value="I">I</option>
-                    <option value="J">J</option>
-                    <option value="K">K</option>
-                    <option value="L">L</option>
-                    <option value="M">M</option>
-                    <option value="N">N</option>
-                    <option value="O">O</option>
-                    <option value="P">P</option>
-                </select>
-            </div>
+
+
         </div>
         
         <div id="TeleopData">
@@ -137,15 +128,11 @@
 
                 <div id="TeleopMade">Made:
                     <button onclick="Disk_Score('teleop', 'make', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'make', 'mid');">Mid Goal</button>
                     <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal</button>
-                    <button onclick="Disk_Score('teleop', 'make', 'pyramid');">Pyramid</button>
                 </div>
                 <div id="TeleopMissed">Missed:
                     <button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'miss', 'mid');">Mid Goal</button>
                     <button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
-                    <button onclick="Disk_Score('teleop', 'miss', 'pyramid');">Pyramid</button>
                 </div>
                 Points Scored: <a id="tele_pts_display">0</a>
                 <br>
@@ -171,9 +158,7 @@
                     <span class="highlight"></span>
                 </div>
                 
-                <form name="frm_drive_under_pyramid">
-                    <input type="checkbox" name="drive_under_pyramid" id="drive_under_pyramid">Can Drive Under Pyramid<br></form>
-                <br>
+
                 
                 <a>On-Robot Defense Effectiveness :  </a>
                 <a id="tele_robot_block_display">Awful / None</a>
@@ -213,10 +198,6 @@
              
             <div id="EndButtons">
                 Made:
-                <button onclick="Disk_Score('end', 'make', 'pyramid');">Pyramid</button>
-                Missed:
-                <button onclick="Disk_Score('end', 'miss', 'pyramid');">Pyramid</button>
-                <br>
                 Points Scored :  <a id="end_pts_display">0</a>
                 <br>
                 Points Missed :  <a id="end_miss_display">0</a>
