@@ -125,27 +125,21 @@
             <div id="ShootingData">
                 <form name="frm_shooting_location" id="frm_shooting_location">
                     Shooting Location:<br>
-                    <input type="checkbox" name="shooting_location" id="Front_shoot">Front Court<br>
-                    <input type="checkbox" name="shooting_location" id="Full_shoot">Full Court<br>
+                    <input type="checkbox" name="shooting_location" id="Front_shoot">Near Batter
+                    <input type="checkbox" name="shooting_location" id="Full_shoot">Outer Works<br>
                 </form>
 
-                <form name="frm_loading_location" id="frm_loading_location">
-                    Disk Loading Location:<br>
-                    <input type="checkbox" name="loading_location" id="Human_load">Human Loading<br>
-                    <input type="checkbox" name="loading_location" id="Floor_load">Floor Pickup<br>
-                </form>
+                
 
                 <div id="TeleopMade">Made:
                     <button onclick="Disk_Score('teleop', 'make', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'make', 'mid');">Mid Goal</button>
+                   
                     <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal</button>
-                    <button onclick="Disk_Score('teleop', 'make', 'pyramid');">Pyramid</button>
+                    
                 </div>
                 <div id="TeleopMissed">Missed:
                     <button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'miss', 'mid');">Mid Goal</button>
                     <button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
-                    <button onclick="Disk_Score('teleop', 'miss', 'pyramid');">Pyramid</button>
                 </div>
                 Points Scored: <a id="tele_pts_display">0</a>
                 <br>
@@ -171,9 +165,7 @@
                     <span class="highlight"></span>
                 </div>
                 
-                <form name="frm_drive_under_pyramid">
-                    <input type="checkbox" name="drive_under_pyramid" id="drive_under_pyramid">Can Drive Under Pyramid<br></form>
-                <br>
+                
                 
                 <a>On-Robot Defense Effectiveness :  </a>
                 <a id="tele_robot_block_display">Awful / None</a>
@@ -188,22 +180,69 @@
                     <input class="bar" type="range" id ="robot_block_time" name="robot_block_time" min="0" max="120" value ="0" onchange="Update_Stuff();">
                     <span class="highlight"></span>
                 </div>
+                <table style= "width: 1000px">
+                	<tr>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/cull.png" style = "width: 100px;height: 100px"></button>
+                			<a id="cullCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/draw.png" style = "width: 100px;height: 100px"></button>
+                			<a id="drawbridgeCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/fris.png" style = "width: 100px;height: 100px"></button>
+                			<a id="frisCounter">0</a>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td></td>
+                		<td></td>
+                		<td></td>
+                	</tr>
+                	<tr>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/moat.png" style = "width: 100px;height: 100px"></button>
+                			<a id="moatCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/ramp.png" style = "width: 100px;height: 100px"></button>
+                			<a id="rampCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/rock.png" style = "width: 100px;height: 100px"></button>
+                			<a id="rockCounter">0</a>
+                	</tr>
+                	<tr>
+                		<td></td>
+                		<td></td>
+                		<td></td>
+                	</tr>
+                	<tr>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/sall.png" style = "width: 100px;height: 100px"></button>
+                			<a id="sallCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/terr.png" style = "width: 100px;height: 100px"></button>
+                			<a id="terrainCounter">0</a>
+                		</td>
+                		<td>
+                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/fris.png" style = "width: 100px;height: 100px"></button>
+                			<a id="frisCounter">0</a>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td></td>
+                		<td></td>
+                		<td></td>
+                	</tr>
+                </table>
                 
-                <a>Disk Blocking Effectiveness :  </a>
-                <a id="tele_disk_block_display">0% - 20% / None</a>
-                <div id="slider">
-                    <input class="bar" type="range" id ="disk_block" name="disk_block" min="0" max="4" value ="0" onchange="Update_Stuff();">
-                    <span class="highlight"></span>
-                </div>
                 
-                <a>Disk Blocking Time :  </a>
-                <a id="tele_disk_block_time_display">0</a> seconds
-                <div id="slider">
-                    <input class="bar" type="range" id ="disk_block_time" name="disk_block_time" min="0" max="120" value ="0" onchange="Update_Stuff();">
-                    <span class="highlight"></span>
-                </div>
-            </div>
+           </div>
         </div>
+        
         
         <div id="EndData">
             <!-- ------------------------------ -->
