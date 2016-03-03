@@ -260,11 +260,8 @@ function save_data()
     matchData += document.getElementById("match_type").value + ",";
     matchData += document.getElementById("auto_pts_display").innerHTML + ",";
     matchData += document.getElementById("auto_miss_display").innerHTML + ",";
-    matchData += document.getElementById("Location").value + ",";
     matchData += (document.getElementById("Front_shoot").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("Full_shoot").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("Human_load").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("Floor_load").checked ? "T" : "F") + ",";
     matchData += document.getElementById("tele_pts_display").innerHTML + ",";
     matchData += document.getElementById("tele_miss_display").innerHTML + ",";
     matchData += tele_driving + ",";
@@ -295,19 +292,15 @@ function save_data()
 function reset_form()
 {
     document.getElementById("team_number_in").value = "";
-    document.getElementById("match_number_in").value = "";
-    document.getElementById("floor_pickup").value = 0;
+    document.getElementById("match_number_in").value++;
     
     auto_score_stack = new Array();
-    document.getElementById("Location").value = "A";
     auto_goals[0] = new goal_t(0,0,0);
     auto_goals[1] = new goal_t(0,0,0);
     
     tele_score_stack = new Array();
     document.getElementById("Front_shoot").checked = false;
     document.getElementById("Full_shoot").checked = false;
-    document.getElementById("Human_load").checked = false;
-    document.getElementById("Floor_load").checked = false;
     tele_goals[0] = new goal_t(0,0,0);
     tele_goals[1] = new goal_t(0,0,0);
     tele_front_court = 0;
@@ -319,8 +312,6 @@ function reset_form()
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
-    document.getElementById("disk_block").value = 0;
-    document.getElementById("disk_block_time").value = 0;
     end_score_stack = new Array();
     end_goals[0] = new goal_t(0,0,0);
     end_goals[1] = new goal_t(0,0,0);
@@ -347,14 +338,6 @@ function reset_form()
  */
 
 /*
- * Call when inputs change
- */
-function Update_Stuff()
-{
-    update_data();
-}
-
-/*
  * Disk scored.
  */
 function Disk_Score(period, status, goal)
@@ -363,7 +346,7 @@ function Disk_Score(period, status, goal)
     new_disk_score(period, status, goal);
     
     /* update point totals */
-    Update_Stuff();                 
+    update_data();                 
 }
 
 /*
@@ -375,7 +358,7 @@ function Robot_Climb()
     //new_robot_climb(period, speed, height);
     
     /* update point totals */
-    Update_Stuff();                 
+    update_data();                 
 }
             
 /*
@@ -386,7 +369,7 @@ function Penalty(type)
     new_penalty(type);
  
     /* update point totals */
-    Update_Stuff();
+    update_data();
 }
 
 //Undo a score if possible

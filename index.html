@@ -150,7 +150,7 @@
                 <a>How's My Driving? :  </a>
                 <a id="tele_driving_display">Little or No Movement</a>
                 <div id="shortslider">
-                    <input class="bar" type="range" id ="driving_ability" name="driving_ability" min="0" max="3" value ="0" onchange="Update_Stuff();">
+                    <input class="bar" type="range" id ="driving_ability" name="driving_ability" min="0" max="3" value ="0" onchange="update_data();">
                     <span class="highlight"></span>
                 </div>
                 
@@ -159,14 +159,14 @@
                 <a>On-Robot Defense Effectiveness :  </a>
                 <a id="tele_robot_block_display">Awful / None</a>
                 <div id="shortslider">
-                    <input class="bar" type="range" id ="robot_block" name="robot_block" min="0" max="3" value ="0" onchange="Update_Stuff();">
+                    <input class="bar" type="range" id ="robot_block" name="robot_block" min="0" max="3" value ="0" onchange="update_data();">
                     <span class="highlight"></span>
                 </div>
                 
                 <a>On-Robot Defense Time    :  </a>
                 <a id="tele_robot_block_time_display">0</a> seconds
                 <div id="slider">
-                    <input class="bar" type="range" id ="robot_block_time" name="robot_block_time" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                    <input class="bar" type="range" id ="robot_block_time" name="robot_block_time" min="0" max="120" value ="0" onchange="update_data();">
                     <span class="highlight"></span>
                 </div>
                 <table style= "width: 1000px">
@@ -261,20 +261,20 @@
                 Climb Level :  
                 <a id="end_climb_display">0</a>
                 <div id="shortslider">
-                   <input class="bar" type="range" id ="climb_level" name="climb_level" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
+                   <input class="bar" type="range" id ="climb_level" name="climb_level" min="0" max="30" value ="0" step="10" onchange="update_data();">
                    <span class="highlight"></span>
                </div>
 
                Climb Level Attempted :  
                <a id="end_climb_attempt">0</a>
                <div id="shortslider">
-                   <input class="bar" type="range" id ="climb_attempt" name="climb_attempt" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
+                   <input class="bar" type="range" id ="climb_attempt" name="climb_attempt" min="0" max="30" value ="0" step="10" onchange="update_data();">
                    <span class="highlight"></span>
                </div>
                Climb Speed :  
                <a id="end_climb_speed_display">0</a> seconds
                <div id="slider">
-                   <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                   <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="120" value ="0" onchange="update_data();">
                    <span class="highlight"></span>
                </div>
             </div>
