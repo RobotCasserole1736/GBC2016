@@ -61,10 +61,9 @@
             <!-- ----------Autonomous Period---------- -->
             <!-- ------------------------------------- -->
 
-            <!-- Need to add starting location selector here -->
-            <div id="DiscsAndPoints">
-            <input type="checkbox" name="spy" value="Spy">Used a spy<br>
-            <input type="checkbox" name="autodrive" value="Drove">Drove to the defense<br>
+            <div id="BallsAndPoints">
+                <input type="checkbox" name="spy" value="Spy">Started in spy location<br>
+                <input type="checkbox" name="autodrive" value="Drove">Drove to the defense<br>
                 Made:
                     <button onclick="Disk_Score('autonomous', 'make', 'high');">High Goal</button>
                     <button onclick="Disk_Score('autonomous', 'make', 'low');">Low Goal</button>
@@ -88,12 +87,13 @@
                 <br>
                 <button onclick="Undo_Penalty();">Undo Penalty</button>
                 <br/>
-
-
-
+            </div>
+            <div id="StartLocation">
+                Auto Defense Crossed:<br>
                 <select>
+                    <option value="None">None</option>
   					<option value="Low">Low Bar</option>
- 					<option value="Chival">Chival de Frise</option>
+ 					<option value="Cheval">Cheval de Frise</option>
   					<option value="Drawbridge">Drawbridge</option>
   					<option value="Sally Port">Sally Port</option>
   					<option value="Rough Terrain">Rough Terrain</option>

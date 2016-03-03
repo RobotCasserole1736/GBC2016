@@ -358,7 +358,7 @@ li {
     display: inline-block;
 }
 
-#DiscsAndPoints, #StartLocation, #ShootingData, #TeleopSliders, 
+#BallsAndPoints, #StartLocation, #ShootingData, #TeleopSliders, 
 #MatchDataStrings, #MatchDataValues, #EndButtons, #EndSliders,
 #frm_loading_location, #frm_shooting_location{
     display: inline-block;

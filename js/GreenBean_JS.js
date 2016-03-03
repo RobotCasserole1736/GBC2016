@@ -46,9 +46,7 @@ function goal_t(high, low, points)
     var tele_floor_loading = 0;
     
     var tele_driving = 0;
-    var tele_disk_block = 0;
     var tele_robot_block = 0;
-    var tele_disk_block_time = 0;
     var tele_robot_block_time = 0;
     
     var tele_score_stack = new Array();
@@ -82,13 +80,8 @@ function update_data()
     /* teleop data */
         tele_front_court = document.frm_shooting_location.shooting_location[0];
         tele_full_court = document.frm_shooting_location.shooting_location[1];
-
-        tele_human_loading = document.frm_loading_location.loading_location[0];
-        tele_floor_loading = document.frm_loading_location.loading_location[1];
         
         tele_driving = document.getElementById('driving_ability').value;
-        tele_disk_block = document.getElementById('disk_block').value;
-        tele_disk_block_time = document.getElementById('disk_block_time').value;
         tele_robot_block = document.getElementById('robot_block').value;
         tele_robot_block_time = document.getElementById('robot_block_time').value;
         
@@ -131,26 +124,6 @@ function disp_update()
             break;
         case '3':
             document.getElementById("tele_driving_display").innerHTML = "Exceptional Driving";
-            break;
-    }
-    
-    document.getElementById("tele_disk_block_time_display").innerHTML = tele_disk_block_time;
-    switch(tele_disk_block)
-    {
-        case '0':
-            document.getElementById("tele_disk_block_display").innerHTML = "0% - 20% / None";
-            break;
-        case '1':
-            document.getElementById("tele_disk_block_display").innerHTML = "21% - 40%";
-            break;
-        case '2':
-            document.getElementById("tele_disk_block_display").innerHTML = "41% - 60%";
-            break;
-        case '3':
-            document.getElementById("tele_disk_block_display").innerHTML = "61% - 80%";
-            break;
-        case '4':
-            document.getElementById("tele_disk_block_display").innerHTML = "81% - 100%";
             break;
     }
     
@@ -295,9 +268,7 @@ function save_data()
     matchData += document.getElementById("tele_pts_display").innerHTML + ",";
     matchData += document.getElementById("tele_miss_display").innerHTML + ",";
     matchData += tele_driving + ",";
-    matchData += tele_disk_block + ",";
     matchData += tele_robot_block + ",";
-    matchData += tele_disk_block_time + ",";
     matchData += tele_robot_block_time + ",";
     matchData += document.getElementById("end_pts_display").innerHTML + ",";
     matchData += document.getElementById("end_miss_display").innerHTML + ",";
@@ -343,9 +314,7 @@ function reset_form()
     tele_full_court = 0;
     tele_human_loading = 0;    
     tele_driving = 0;
-    tele_disk_block = 0;
     tele_robot_block = 0;
-    tele_disk_block_time = 0;
     tele_robot_block_time = 0;
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
