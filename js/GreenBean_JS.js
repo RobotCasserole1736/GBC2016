@@ -50,18 +50,8 @@ function goal_t(high, low, points)
     var tele_robot_block_time = 0;
     
     var tele_score_stack = new Array();
-
-/* end game */
-    var end_goals = new Array();
-    end_goals[0] = new goal_t(0,0,0);
-    end_goals[1] = new goal_t(0,0,0);
     
-    var end_climb_level = new Array();
-    end_climb_level[0] = 0;
-    end_climb_level[1] = 0;
     var end_climb_speed = 0;
-    
-    var end_score_stack = new Array();
 
 /******************************************************************************
  * Internal Functions
@@ -86,8 +76,6 @@ function update_data()
         tele_robot_block_time = document.getElementById('robot_block_time').value;
         
     /* end data */
-        end_climb_level[0] = document.getElementById('climb_level').value;
-        end_climb_level[1] = document.getElementById('climb_attempt').value;
         end_climb_speed = document.getElementById('climb_speed').value;
         
     /* updatae points */
@@ -145,10 +133,6 @@ function disp_update()
     }
         
     /* end */
-    document.getElementById("end_pts_display").innerHTML = end_goals[0].points;   /* points made in end game */
-    document.getElementById("end_miss_display").innerHTML = end_goals[1].points;  /* points missed in end game */
-    document.getElementById("end_climb_display").innerHTML = end_climb_level[0];
-    document.getElementById("end_climb_attempt").innerHTML = end_climb_level[1];
     document.getElementById("end_climb_speed_display").innerHTML = end_climb_speed;
     
     /* penalty */
@@ -171,9 +155,6 @@ function update_points()
     /* update the teleop point total */
     sum_points(tele_goals[0]);
     sum_points(tele_goals[1]);
-    /* update the end game point total */
-    sum_points(end_goals[0]);
-    sum_points(end_goals[1]);
 }
 
 /* 
@@ -227,14 +208,6 @@ function score_change(period, status, goal, change)
         tele_goals[status_l][goal]=tele_goals[status_l][goal]+change;
     }
 
-    /* end game */
-    if ( period === 'end')
-    {
-        if(change > 0)
-            end_score_stack.push([status, goal]);
-        end_goals[status_l][goal]=end_goals[status_l][goal]+change;
-    }
-
 }            
 
 /*
@@ -267,10 +240,6 @@ function save_data()
     matchData += tele_driving + ",";
     matchData += tele_robot_block + ",";
     matchData += tele_robot_block_time + ",";
-    matchData += document.getElementById("end_pts_display").innerHTML + ",";
-    matchData += document.getElementById("end_miss_display").innerHTML + ",";
-    matchData += end_climb_level[0] + ",";
-    matchData += end_climb_level[1] + ",";
     matchData += end_climb_speed + ",";
     matchData += penalty + ",";
     matchData += technical + ",";
@@ -312,14 +281,7 @@ function reset_form()
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
-    end_score_stack = new Array();
-    end_goals[0] = new goal_t(0,0,0);
-    end_goals[1] = new goal_t(0,0,0);
-    end_climb_level[0] = 0;
-    end_climb_level[1] = 0;
     end_climb_speed = 0;
-    document.getElementById("climb_level").value = 0;
-    document.getElementById("climb_attempt").value = 0;
     document.getElementById("climb_speed").value = 0;
     
     penalty_stack = new Array();
@@ -388,13 +350,6 @@ function Undo_Score(period)
             if(tele_score_stack.length > 0)
             {
                 var scoreData = tele_score_stack.pop();
-                score_change(period, scoreData[0], scoreData[1], -1);
-            }
-            break;
-        case 'end':
-            if(end_score_stack.length > 0)
-            {
-                var scoreData = end_score_stack.pop();
                 score_change(period, scoreData[0], scoreData[1], -1);
             }
             break;
