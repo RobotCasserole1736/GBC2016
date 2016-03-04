@@ -212,17 +212,10 @@
 
              
             <div id="EndButtons">
-                Made:
-                <button onclick="Disk_Score('end', 'make', 'pyramid');">Pyramid</button>
-                Missed:
-                <button onclick="Disk_Score('end', 'miss', 'pyramid');">Pyramid</button>
-                <br>
-                Points Scored :  <a id="end_pts_display">0</a>
-                <br>
-                Points Missed :  <a id="end_miss_display">0</a>
-                <br>
-                <button onclick="Undo_Score('end');">Undo</button>
-                <br>
+                <input type="checkbox" name="Capture_Attempt" id="Capture_Attempt">Capture Attempt
+                <input type="checkbox" name="Capture_Success id="Capture_Success">Capture Success<br>
+                <input type="checkbox" name="Scale_Attempt" id="Scale_Attempt">Scale Attempt  
+                <input type="checkbox" name="Scale_Success id="Scale_Success">Scale Success<br>
                 <button onclick="Penalty('penalty');">Penalty</button>
                 <button onclick="Penalty('technical');">Technical Foul</button>
                 <br>
@@ -234,23 +227,10 @@
             </div>
             
             <div id="EndSliders">
-                Climb Level :  
-                <a id="end_climb_display">0</a>
-                <div id="shortslider">
-                   <input class="bar" type="range" id ="climb_level" name="climb_level" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
-                   <span class="highlight"></span>
-               </div>
-
-               Climb Level Attempted :  
-               <a id="end_climb_attempt">0</a>
-               <div id="shortslider">
-                   <input class="bar" type="range" id ="climb_attempt" name="climb_attempt" min="0" max="30" value ="0" step="10" onchange="Update_Stuff();">
-                   <span class="highlight"></span>
-               </div>
                Climb Speed :  
                <a id="end_climb_speed_display">0</a> seconds
                <div id="slider">
-                   <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="120" value ="0" onchange="Update_Stuff();">
+                   <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="20" value ="0" onchange="Update_Stuff();">
                    <span class="highlight"></span>
                </div>
             </div>
