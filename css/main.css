@@ -358,6 +358,14 @@ li {
     display: inline-block;
 }
 
+#crossingTable {
+    border-spacing: 30px 10px;
+}
+
+.cross_counter {
+    font-size: 20px;
+}
+
 #BallsAndPoints, #StartLocation, #ShootingData, #TeleopSliders, 
 #MatchDataStrings, #MatchDataValues, #EndButtons, #EndSliders,
 #frm_loading_location, #frm_shooting_location{

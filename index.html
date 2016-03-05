@@ -169,65 +169,78 @@
                     <input class="bar" type="range" id ="robot_block_time" name="robot_block_time" min="0" max="120" value ="0" onchange="update_data();">
                     <span class="highlight"></span>
                 </div>
-                <table style= "width: 1000px">
+                <table id="crossingTable">
                 	<tr>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/cull.png" style = "width: 100px;height: 100px"></button>
-                			<a id="cullCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('cull');"><img src= "img/cull.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="cullCounter">0</a><br>
+                            <input type="checkbox" id="stuck_cull">Stuck
                 		</td>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/draw.png" style = "width: 100px;height: 100px"></button>
-                			<a id="drawbridgeCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('drawbridge');"><img src= "img/draw.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="drawbridgeCounter">0</a><br>
+                            <input type="checkbox" id="stuck_drawbridge">Stuck
                 		</td>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/fris.png" style = "width: 100px;height: 100px"></button>
-                			<a id="frisCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('fris');"><img src= "img/fris.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="frisCounter">0</a><br>
+                            <input type="checkbox" id="stuck_fris">Stuck
                 		</td>
                 	</tr>
                 	<tr>
-                		<td></td>
-                		<td></td>
-                		<td></td>
+                		<td>
+                			<button type="button" onclick="Defense_Cross('moat');"><img src= "img/moat.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="moatCounter">0</a><br>
+                            <input type="checkbox" id="stuck_moat">Stuck
+                		</td>
+                		<td>
+                			<button type="button" onclick="Defense_Cross('ramp');"><img src= "img/ramp.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="rampCounter">0</a><br>
+                            <input type="checkbox" id="stuck_ramp">Stuck
+                		</td>
+                		<td>
+                			<button type="button" onclick="Defense_Cross('rock');"><img src= "img/rock.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="rockCounter">0</a><br>
+                            <input type="checkbox" id="stuck_rock">Stuck
                 	</tr>
                 	<tr>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/moat.png" style = "width: 100px;height: 100px"></button>
-                			<a id="moatCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('sally');"><img src= "img/sall.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="sallyCounter">0</a><br>
+                            <input type="checkbox" id="stuck_sally">Stuck
                 		</td>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/ramp.png" style = "width: 100px;height: 100px"></button>
-                			<a id="rampCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('terrain');"><img src= "img/terr.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="terrainCounter">0</a><br>
+                            <input type="checkbox" id="stuck_terrain">Stuck
                 		</td>
                 		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/rock.png" style = "width: 100px;height: 100px"></button>
-                			<a id="rockCounter">0</a>
-                	</tr>
-                	<tr>
-                		<td></td>
-                		<td></td>
-                		<td></td>
-                	</tr>
-                	<tr>
-                		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/sall.png" style = "width: 100px;height: 100px"></button>
-                			<a id="sallCounter">0</a>
+                			<button type="button" onclick="Defense_Cross('lowbar');"><img src= "img/fris.png"></button>
+                        </td>
+                        <td>
+                			<a class="cross_counter" id="lowbarCounter">0</a><br>
+                            <input type="checkbox" id="stuck_lowbar">Stuck
                 		</td>
-                		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/terr.png" style = "width: 100px;height: 100px"></button>
-                			<a id="terrainCounter">0</a>
-                		</td>
-                		<td>
-                			<button type="button" onclick="alert('fix this!!!')"><img src= "img/fris.png" style = "width: 100px;height: 100px"></button>
-                			<a id="frisCounter">0</a>
-                		</td>
-                	</tr>
-                	<tr>
-                		<td></td>
-                		<td></td>
-                		<td></td>
                 	</tr>
                 </table>
-                
+                <br>
+                <button onclick="undo_defense_cross();">Undo Crossing</button>
                 
            </div>
         </div>

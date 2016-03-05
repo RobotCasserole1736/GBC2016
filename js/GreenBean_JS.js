@@ -23,35 +23,39 @@ function goal_t(high, low, points)
 /* global variables */
 
 /* Penalty Variables */
-    var penalty = 0;
-    var technical = 0;
-    
-    var penalty_stack = new Array();
+var penalty = 0;
+var technical = 0;
+
+var penalty_stack = new Array();
 
 /* autonomous */
-    var auto_goals = new Array();
-    auto_goals[0] = new goal_t(0,0,0);
-    auto_goals[1] = new goal_t(0,0,0);
+var auto_goals = new Array();
+auto_goals[0] = new goal_t(0,0,0);
+auto_goals[1] = new goal_t(0,0,0);
 
-    var auto_score_stack = new Array();
+var auto_score_stack = new Array();
 
 /* teleoperated */
-    var tele_goals = new Array();
-    tele_goals[0] = new goal_t(0,0,0);
-    tele_goals[1] = new goal_t(0,0,0);
-    
-    var tele_front_court = 0;
-    var tele_full_court = 0;
-    var tele_human_loading = 0;    
-    var tele_floor_loading = 0;
-    
-    var tele_driving = 0;
-    var tele_robot_block = 0;
-    var tele_robot_block_time = 0;
-    
-    var tele_score_stack = new Array();
-    
-    var end_climb_speed = 0;
+var tele_goals = new Array();
+tele_goals[0] = new goal_t(0,0,0);
+tele_goals[1] = new goal_t(0,0,0);
+
+var tele_front_court = 0;
+var tele_full_court = 0;
+var tele_human_loading = 0;    
+var tele_floor_loading = 0;
+
+var tele_driving = 0;
+var tele_robot_block = 0;
+var tele_robot_block_time = 0;
+
+var tele_score_stack = new Array();
+
+var tele_crossings = [0,0,0,0,0,0,0,0,0];
+var tele_cross_stack = new Array();
+
+/* end game */
+var end_climb_speed = 0;
 
 /******************************************************************************
  * Internal Functions
@@ -131,6 +135,16 @@ function disp_update()
             document.getElementById("tele_robot_block_display").innerHTML = "It's Super Effective!";
             break;
     }
+
+    document.getElementById("cullCounter").innerHTML = tele_crossings[0];
+    document.getElementById("drawbridgeCounter").innerHTML = tele_crossings[1];
+    document.getElementById("frisCounter").innerHTML = tele_crossings[2];
+    document.getElementById("moatCounter").innerHTML = tele_crossings[3];
+    document.getElementById("rampCounter").innerHTML = tele_crossings[4];
+    document.getElementById("rockCounter").innerHTML = tele_crossings[5];
+    document.getElementById("sallyCounter").innerHTML = tele_crossings[6];
+    document.getElementById("terrainCounter").innerHTML = tele_crossings[7];
+    document.getElementById("lowbarCounter").innerHTML = tele_crossings[8];
         
     /* end */
     document.getElementById("end_climb_speed_display").innerHTML = end_climb_speed;
@@ -218,11 +232,53 @@ function new_penalty(type)
     switch(type)
     {
         case 'penalty':
-            penalty =++ penalty; penalty_stack.push('penalty');break;
+            penalty =++ penalty;
+            penalty_stack.push('penalty');
+            break;
         case 'technical':
-            technical =++ technical; penalty_stack.push('technical'); break;
+            technical =++ technical;
+            penalty_stack.push('technical');
+            break;
     }
     
+}
+
+/*
+ * Crossing a defense in Teleop
+ */
+function new_defense_cross(type)
+{
+    tele_cross_stack.push(type);
+    switch(type)
+    {
+        case 'cull':
+            tele_crossings[0]++;
+            break;
+        case 'drawbridge':
+            tele_crossings[1]++;
+            break;
+        case 'fris':
+            tele_crossings[2]++;
+            break;
+        case 'moat':
+            tele_crossings[3]++;
+            break;
+        case 'ramp':
+            tele_crossings[4]++;
+            break;
+        case 'rock':
+            tele_crossings[5]++;
+            break;
+        case 'sally':
+            tele_crossings[6]++;
+            break;
+        case 'terrain':
+            tele_crossings[7]++;
+            break;
+        case 'lowbar':
+            tele_crossings[8]++;
+            break;
+    }
 }
 
 function save_data()
@@ -299,6 +355,12 @@ function reset_form()
  * 
  */
 
+ function Defense_Cross(type)
+ {
+    new_defense_cross(type);
+    update_data();
+ }
+
 /*
  * Disk scored.
  */
@@ -369,6 +431,46 @@ function Undo_Penalty()
             penalty--; break;
         case 'technical':
             technical--; break;
+        }
+    }
+    update_data();
+}
+
+//Undo defense crossing
+function undo_defense_cross()
+{
+    if(tele_cross_stack.length > 0)
+    {
+        var type = tele_cross_stack.pop();
+        switch(type)
+        {
+            case 'cull':
+                tele_crossings[0]--;
+                break;
+            case 'drawbridge':
+                tele_crossings[1]--;
+                break;
+            case 'fris':
+                tele_crossings[2]--;
+                break;
+            case 'moat':
+                tele_crossings[3]--;
+                break;
+            case 'ramp':
+                tele_crossings[4]--;
+                break;
+            case 'rock':
+                tele_crossings[5]--;
+                break;
+            case 'sally':
+                tele_crossings[6]--;
+                break;
+            case 'terrain':
+                tele_crossings[7]--;
+                break;
+            case 'lowbar':
+                tele_crossings[8]--;
+                break;
         }
     }
     update_data();
