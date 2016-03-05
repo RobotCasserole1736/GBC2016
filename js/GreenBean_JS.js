@@ -287,18 +287,44 @@ function save_data()
     matchData += document.getElementById("team_number_in").value + ",";
     matchData += document.getElementById("match_number_in").value + ",";
     matchData += document.getElementById("match_type").value + ",";
+    matchData += (document.getElementById("spy").checked ? "T" : "F") + ",";
+    matchData += document.getElementById("DroveToDefense").checked ? "T" : "F") + ",";
     matchData += document.getElementById("auto_pts_display").innerHTML + ",";
     matchData += document.getElementById("auto_miss_display").innerHTML + ",";
+    var e = document.getElementById("AutoDefenseCrossed");
+    matchData += e.options[e.selectedIndex].text + ",";
     matchData += (document.getElementById("Front_shoot").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("Full_shoot").checked ? "T" : "F") + ",";
     matchData += document.getElementById("tele_pts_display").innerHTML + ",";
     matchData += document.getElementById("tele_miss_display").innerHTML + ",";
+    
+   // Get teleop high/low points gained/missed still!!!
+    
     matchData += tele_driving + ",";
     matchData += tele_robot_block + ",";
     matchData += tele_robot_block_time + ",";
     matchData += end_climb_speed + ",";
+    matchData += document.getElementById("cullCounter").innerHTML + ",";
+    matchData += document.getElementById("drawbridgeCounter").innerHTML + ",";
+    matchData += document.getElementById("frisCounter").innerHTML + ",";
+    matchData += document.getElementById("moatCounter").innerHTML + ",";
+    matchData += document.getElementById("rampCounter").innerHTML + ",";
+    matchData += document.getElementById("rockCounter").innerHTML + ",";
+    matchData += document.getElementById("sallCounter").innerHTML + ",";
+    matchData += document.getElementById("terrainCounter").innerHTML + ",";
+    matchData += document.getElementById("frisCounter").innerHTML + ",";
+    
+    //Still need the stuck counter for each defense
+    
+    matchData += (document.getElementById("capture_attempt").checked ? "T" : "F") + ",";
+    matchData += (document.getElementById("capture_success").checked ? "T" : "F") + ",";
+    matchData += (document.getElementById("scale_attempt").checked ? "T" : "F") + ",";
+    matchData += (document.getElementById("scale_success").checked ? "T" : "F") + ",";
     matchData += penalty + ",";
     matchData += technical + ",";
+    
+    //get rank in here too
+   
     var comments = document.getElementById("Comments").value;
     comments = comments.replace(",","_"); //Get rid of commas so we don't mess up CSV
     comments = comments.replace("\n","   ");
@@ -316,12 +342,17 @@ function save_data()
 //This only resets stuff Nick felt should be reset
 function reset_form()
 {
+	document.getElementByID("scout_name_in").value = "";
     document.getElementById("team_number_in").value = "";
     document.getElementById("match_number_in").value++;
     
+    document.getElementByID("spy").checked = false;
+    document.getElementByID("DroveToDefense").checked = false;
     auto_score_stack = new Array();
     auto_goals[0] = new goal_t(0,0,0);
     auto_goals[1] = new goal_t(0,0,0);
+    var e = document.getElementById("AutoDefenseCrossed");
+    e.value = "None"
     
     tele_score_stack = new Array();
     document.getElementById("Front_shoot").checked = false;
@@ -334,11 +365,17 @@ function reset_form()
     tele_driving = 0;
     tele_robot_block = 0;
     tele_robot_block_time = 0;
+    //do stuff for defenses
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
+    document.getElementById("capture_attempt").checked = false;
+    document.getElementById("capture_success").checked = false;
+    document.getElementById("scale_attempt").checked = false;
+    document.getElementById("scale_success").checked ? = false;
     end_climb_speed = 0;
     document.getElementById("climb_speed").value = 0;
+    
     
     penalty_stack = new Array();
     penalty = 0;

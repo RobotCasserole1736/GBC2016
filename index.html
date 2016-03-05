@@ -62,8 +62,8 @@
             <!-- ------------------------------------- -->
 
             <div id="BallsAndPoints">
-                <input type="checkbox" name="spy" value="Spy">Started in spy location<br>
-                <input type="checkbox" name="autodrive" value="Drove">Drove to the defense<br>
+                <input type="checkbox" name="spy" value="Spy" id="spy">Started in spy location<br>
+                <input type="checkbox" name="autodrive" value="Drove" id="DroveToDefense">Drove to the defense<br>
                 Made:
                     <button onclick="Disk_Score('autonomous', 'make', 'high');">High Goal</button>
                     <button onclick="Disk_Score('autonomous', 'make', 'low');">Low Goal</button>
@@ -90,7 +90,7 @@
             </div>
             <div id="StartLocation">
                 Auto Defense Crossed:<br>
-                <select>
+                <select id="AutoDefenseCrossed">
                     <option value="None">None</option>
   					<option value="Low">Low Bar</option>
  					<option value="Cheval">Cheval de Frise</option>
@@ -130,9 +130,31 @@
                     <button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
                     <button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
                 </div>
-                Points Scored: <a id="tele_pts_display">0</a>
+                <table>
+                	<tr>
+                		<td>
+                			<button onclick="Disk_Score('teleop', 'make', 'high');">High Goal Made</button>
+                		</td>
+                		<td>
+                			 <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal Made</button>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td>
+                			<button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal Missed</button>
+                		</td>
+                		<td>
+                			<button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal Missed</button>
+                		</td>
+                	</tr>
+                </table>
+                			
+                			
+                			
+                			
+                Points Scored: <a id="tele_high_pts_display">0</a> <a id="tele_low_pts_display">0</a>
                 <br>
-                Points Missed: <a id="tele_miss_display">0</a>
+                Points Missed: <a id="tele_high_miss_display">0</a> <a id="tele_low_miss_display">0</a>
                 <br>
                 <button onclick="Undo_Score('teleop');">Undo</button>
                 <br>
@@ -253,10 +275,25 @@
 
              
             <div id="EndButtons">
-                <input type="checkbox" name="Capture_Attempt" id="Capture_Attempt">Capture Attempt
-                <input type="checkbox" name="Capture_Success id="Capture_Success">Capture Success<br>
-                <input type="checkbox" name="Scale_Attempt" id="Scale_Attempt">Scale Attempt  
-                <input type="checkbox" name="Scale_Success id="Scale_Success">Scale Success<br>
+            	<table> 
+            		<tr>
+            			<td>
+                			<input type="checkbox" name="Capture_Attempt" id="capture_attempt">Capture Attempt
+                		</td>
+                		<td>
+                			 <input type="checkbox" name="Capture_Success" id="capture_success">Capture Success<br>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td>	
+                			<input type="checkbox" name="Scale_Attempt" id="scale_attempt">Scale Attempt  
+                		</td>
+                		<td>
+               			    <input type="checkbox" name="Scale_Success" id="scale_success">Scale Success<br>
+               		    </td>
+               		</tr>
+                </table>
+                
                 <button onclick="Penalty('penalty');">Penalty</button>
                 <button onclick="Penalty('technical');">Technical Foul</button>
                 <br>
