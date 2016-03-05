@@ -120,41 +120,52 @@
                     <input type="checkbox" name="shooting_location" id="Full_shoot">Outer Works<br>
                 </form>
 
-                
-
-                <div id="TeleopMade">Made:
-                    <button onclick="Disk_Score('teleop', 'make', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal</button>
-                </div>
-                <div id="TeleopMissed">Missed:
-                    <button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
-                    <button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
-                </div>
                 <table>
                 	<tr>
+                        <td>
+                            Made: 
+                        </td>
                 		<td>
-                			<button onclick="Disk_Score('teleop', 'make', 'high');">High Goal Made</button>
+                			<button onclick="Disk_Score('teleop', 'make', 'high');">High Goal</button>
                 		</td>
                 		<td>
-                			 <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal Made</button>
+                			 <button onclick="Disk_Score('teleop', 'make', 'low');">Low Goal</button>
                 		</td>
                 	</tr>
                 	<tr>
+                        <td>
+                            Missed: 
+                        </td>
                 		<td>
-                			<button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal Missed</button>
+                			<button onclick="Disk_Score('teleop', 'miss', 'high');">High Goal</button>
                 		</td>
                 		<td>
-                			<button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal Missed</button>
+                			<button onclick="Disk_Score('teleop', 'miss', 'low');">Low Goal</button>
                 		</td>
                 	</tr>
+                    <tr>
+                        <td>
+                            Scored: 
+                        </td>
+                        <td>
+                            High: <a id="tele_high_pts_display">0</a>
+                        </td>
+                        <td>
+                            Low: <a id="tele_low_pts_display">0</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Missed: 
+                        </td>
+                        <td>
+                            High: <a id="tele_high_miss_display">0</a>
+                        </td>
+                        <td>
+                            Low: <a id="tele_low_miss_display">0</a>
+                        </td>
+                    </tr>
                 </table>
-                			
-                			
-                			
-                			
-                Points Scored: <a id="tele_high_pts_display">0</a> <a id="tele_low_pts_display">0</a>
-                <br>
-                Points Missed: <a id="tele_high_miss_display">0</a> <a id="tele_low_miss_display">0</a>
                 <br>
                 <button onclick="Undo_Score('teleop');">Undo</button>
                 <br>
@@ -319,7 +330,13 @@
             <!-- ----------------------------- -->
             <!-- ----------Post Match--------- -->
             <!-- ----------------------------- -->
-            
+            <br>
+            <a>Overall Rating :  </a>
+            <a id="post_overallrating">Do Not Pick</a>
+            <div id="shortslider">
+                <input class="bar" type="range" id ="Overall_Rating" name="Overall_Rating" min="0" max="3" value ="0" onchange="update_data();">
+                <span class="highlight"></span>
+            </div>
             <textarea placeholder="Comments" id="Comments"></textarea>
             <br>
             <button id="SubmitReport" onclick="Submit_Report();">Submit Report</button>
@@ -336,7 +353,7 @@
             </div>
         </div>
         <div id="About">
-            This scouting tool was created by FRC Team 1736 Mentors Andrew Gurik and Nick Dunne, with content and design considerations by Tim Delaney.
+            This scouting tool was created by the students and mentors of FIRST Robotics Competition Team 1736, Robot Casserole.
         </div>
         <script type="text/javascript">
             $('ul.tabs').each(function(){

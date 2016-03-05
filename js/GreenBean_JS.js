@@ -13,11 +13,13 @@
 
 
 /* constructor for goals_t objects */
-function goal_t(high, low, points)
+function goal_t(high, low, points, high_points, low_points)
 {
     this.high = high;
     this.low = low;
     this.points = points;
+    this.high_points = high_points;
+    this.low_points = low_points;
 }
 
 /* global variables */
@@ -30,15 +32,15 @@ var penalty_stack = new Array();
 
 /* autonomous */
 var auto_goals = new Array();
-auto_goals[0] = new goal_t(0,0,0);
-auto_goals[1] = new goal_t(0,0,0);
+auto_goals[0] = new goal_t(0,0,0,0,0);
+auto_goals[1] = new goal_t(0,0,0,0,0);
 
 var auto_score_stack = new Array();
 
 /* teleoperated */
 var tele_goals = new Array();
-tele_goals[0] = new goal_t(0,0,0);
-tele_goals[1] = new goal_t(0,0,0);
+tele_goals[0] = new goal_t(0,0,0,0,0);
+tele_goals[1] = new goal_t(0,0,0,0,0);
 
 var tele_front_court = 0;
 var tele_full_court = 0;
@@ -84,6 +86,7 @@ function update_data()
         
     /* updatae points */
     update_points();
+
     
     /* update display */
     disp_update();
@@ -99,8 +102,10 @@ function disp_update()
     document.getElementById("auto_miss_display").innerHTML = auto_goals[1].points;  /* points missed in auton */
     
     /* teleop */
-    document.getElementById("tele_pts_display").innerHTML = tele_goals[0].points;   /* points made in teleop */
-    document.getElementById("tele_miss_display").innerHTML = tele_goals[1].points;  /* points missed in teleop */
+    document.getElementById("tele_high_pts_display").innerHTML = tele_goals[0].high_points;   /* high points made in teleop */
+    document.getElementById("tele_high_miss_display").innerHTML = tele_goals[1].high_points;  /* high points missed in teleop */
+    document.getElementById("tele_low_pts_display").innerHTML = tele_goals[0].low_points;   /* low points made in teleop */
+    document.getElementById("tele_low_miss_display").innerHTML = tele_goals[1].low_points;  /* low points missed in teleop */
     
     
     switch(tele_driving)
@@ -148,6 +153,23 @@ function disp_update()
         
     /* end */
     document.getElementById("end_climb_speed_display").innerHTML = end_climb_speed;
+
+    var overallrating = document.getElementById("Overall_Rating").value;
+    switch(overallrating)
+    {
+        case '0':
+            document.getElementById("post_overallrating").innerHTML = "Do Not Pick";
+            break;
+        case '1':
+            document.getElementById("post_overallrating").innerHTML = "Below Average";
+            break;
+        case '2':
+            document.getElementById("post_overallrating").innerHTML = "Average";
+            break;
+        case '3':
+            document.getElementById("post_overallrating").innerHTML = "Top Team";
+            break;
+    }
     
     /* penalty */
     document.getElementById("penalty_display1").innerHTML = penalty;
@@ -179,10 +201,13 @@ function sum_points(var_config)
     /* sum disk points */
     var_config.points = 5 * var_config.high +
                         2 * var_config.low;
+
+    var_config.high_points = 5 * var_config.high;
+    var_config.low_points = 2 * var_config.low;
                 
     /* double points in auton */
     if (var_config === auto_goals[0] || var_config === auto_goals[1] )
-            var_config.points = 2* var_config.points;
+            var_config.points = 2 * var_config.points;
 }
 
 // Replaced new_disk_score so that an undo score function could be easily added
@@ -288,33 +313,39 @@ function save_data()
     matchData += document.getElementById("match_number_in").value + ",";
     matchData += document.getElementById("match_type").value + ",";
     matchData += (document.getElementById("spy").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("DroveToDefense").checked ? "T" : "F") + ",";
+    matchData += (document.getElementById("DroveToDefense").checked ? "T" : "F") + ",";
     matchData += document.getElementById("auto_pts_display").innerHTML + ",";
     matchData += document.getElementById("auto_miss_display").innerHTML + ",";
     var e = document.getElementById("AutoDefenseCrossed");
     matchData += e.options[e.selectedIndex].text + ",";
     matchData += (document.getElementById("Front_shoot").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("Full_shoot").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("tele_pts_display").innerHTML + ",";
-    matchData += document.getElementById("tele_miss_display").innerHTML + ",";
-    
-   // Get teleop high/low points gained/missed still!!!
-    
+    matchData += document.getElementById("tele_high_pts_display").innerHTML + ",";
+    matchData += document.getElementById("tele_high_miss_display").innerHTML + ",";
+    matchData += document.getElementById("tele_low_pts_display").innerHTML + ",";
+    matchData += document.getElementById("tele_low_miss_display").innerHTML + ",";
     matchData += tele_driving + ",";
     matchData += tele_robot_block + ",";
     matchData += tele_robot_block_time + ",";
     matchData += end_climb_speed + ",";
     matchData += document.getElementById("cullCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_cull").checked ? "T" : "F") + ",";
     matchData += document.getElementById("drawbridgeCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_drawbridge").checked ? "T" : "F") + ",";
     matchData += document.getElementById("frisCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_fris").checked ? "T" : "F") + ",";
     matchData += document.getElementById("moatCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_moat").checked ? "T" : "F") + ",";
     matchData += document.getElementById("rampCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_ramp").checked ? "T" : "F") + ",";
     matchData += document.getElementById("rockCounter").innerHTML + ",";
-    matchData += document.getElementById("sallCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_rock").checked ? "T" : "F") + ",";
+    matchData += document.getElementById("sallyCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_sally").checked ? "T" : "F") + ",";
     matchData += document.getElementById("terrainCounter").innerHTML + ",";
-    matchData += document.getElementById("frisCounter").innerHTML + ",";
-    
-    //Still need the stuck counter for each defense
+    matchData += (document.getElementById("stuck_terrain").checked ? "T" : "F") + ",";
+    matchData += document.getElementById("lowbarCounter").innerHTML + ",";
+    matchData += (document.getElementById("stuck_lowbar").checked ? "T" : "F") + ",";
     
     matchData += (document.getElementById("capture_attempt").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("capture_success").checked ? "T" : "F") + ",";
@@ -322,9 +353,7 @@ function save_data()
     matchData += (document.getElementById("scale_success").checked ? "T" : "F") + ",";
     matchData += penalty + ",";
     matchData += technical + ",";
-    
-    //get rank in here too
-   
+    matchData += overallrating = document.getElementById("Overall_Rating").value + ",";   
     var comments = document.getElementById("Comments").value;
     comments = comments.replace(",","_"); //Get rid of commas so we don't mess up CSV
     comments = comments.replace("\n","   ");
@@ -342,37 +371,37 @@ function save_data()
 //This only resets stuff Nick felt should be reset
 function reset_form()
 {
-	document.getElementByID("scout_name_in").value = "";
     document.getElementById("team_number_in").value = "";
     document.getElementById("match_number_in").value++;
     
-    document.getElementByID("spy").checked = false;
-    document.getElementByID("DroveToDefense").checked = false;
+    document.getElementById("spy").checked = false;
+    document.getElementById("DroveToDefense").checked = false;
     auto_score_stack = new Array();
-    auto_goals[0] = new goal_t(0,0,0);
-    auto_goals[1] = new goal_t(0,0,0);
+    auto_goals[0] = new goal_t(0,0,0,0,0);
+    auto_goals[1] = new goal_t(0,0,0,0,0);
     var e = document.getElementById("AutoDefenseCrossed");
     e.value = "None"
     
     tele_score_stack = new Array();
     document.getElementById("Front_shoot").checked = false;
     document.getElementById("Full_shoot").checked = false;
-    tele_goals[0] = new goal_t(0,0,0);
-    tele_goals[1] = new goal_t(0,0,0);
+    tele_goals[0] = new goal_t(0,0,0,0,0);
+    tele_goals[1] = new goal_t(0,0,0,0,0);
     tele_front_court = 0;
     tele_full_court = 0;
     tele_human_loading = 0;    
     tele_driving = 0;
     tele_robot_block = 0;
     tele_robot_block_time = 0;
-    //do stuff for defenses
+    tele_crossings = [0,0,0,0,0,0,0,0,0];
+    tele_cross_stack = new Array();
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
     document.getElementById("capture_attempt").checked = false;
     document.getElementById("capture_success").checked = false;
     document.getElementById("scale_attempt").checked = false;
-    document.getElementById("scale_success").checked ? = false;
+    document.getElementById("scale_success").checked = false;
     end_climb_speed = 0;
     document.getElementById("climb_speed").value = 0;
     
@@ -380,6 +409,7 @@ function reset_form()
     penalty_stack = new Array();
     penalty = 0;
     technical = 0;
+    document.getElementById("Overall_Rating").value = 0;
     document.getElementById("Comments").value="";
     
     
