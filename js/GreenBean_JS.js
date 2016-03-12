@@ -393,7 +393,7 @@ function save_data()
     matchData += technical_end + ",";
     matchData += overallrating = document.getElementById("Overall_Rating").value + ",";   
     var comments = document.getElementById("Comments").value;
-    comments = comments.replace(",","_"); //Get rid of commas so we don't mess up CSV
+    comments = comments.replace(/,/g,"_"); //Get rid of commas so we don't mess up CSV
     comments = comments.replace("\n","   ");
     matchData += comments + "\n";
     var existingData = localStorage.getItem("MatchData");
