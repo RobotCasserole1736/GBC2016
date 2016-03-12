@@ -78,8 +78,8 @@
                 <br>
                 <button onclick="Undo_Score('autonomous');">Undo</button>
                 <br>
-                <button onclick="Penalty('penalty');">Penalty</button>
-                <button onclick="Penalty('technical');">Technical Foul</button>
+                <button onclick="Penalty('penalty','auto');">Penalty</button>
+                <button onclick="Penalty('technical','auto');">Technical Foul</button>
                 <br>
                 <a>Penalties :  </a><a id="penalty_display1">0</a>
                 <br>
@@ -117,7 +117,8 @@
                 <form name="frm_shooting_location" id="frm_shooting_location">
                     Shooting Location:<br>
                     <input type="checkbox" name="shooting_location" id="Front_shoot">Near Batter
-                    <input type="checkbox" name="shooting_location" id="Full_shoot">Outer Works<br>
+                    <input type="checkbox" name="shooting_location" id="Full_shoot">Outer Works
+                    <input type="checkbox" name="shooting_location" id="Corner_shoot">Corner<br>
                 </form>
 
                 <table>
@@ -169,8 +170,8 @@
                 <br>
                 <button onclick="Undo_Score('teleop');">Undo</button>
                 <br>
-                <button onclick="Penalty('penalty');">Penalty</button>
-                <button onclick="Penalty('technical');">Technical Foul</button>
+                <button onclick="Penalty('penalty','tele');">Penalty</button>
+                <button onclick="Penalty('technical','tele');">Technical Foul</button>
                 <br>
                 <a>Penalties :  </a><a id="penalty_display2">0</a>
                 <br>
@@ -264,7 +265,7 @@
                             <input type="checkbox" id="stuck_terrain">Stuck
                 		</td>
                 		<td>
-                			<button type="button" onclick="Defense_Cross('lowbar');"><img src= "img/fris.png"></button>
+                			<button type="button" onclick="Defense_Cross('lowbar');"><img src= "img/lowbar.png"></button>
                         </td>
                         <td>
                 			<a class="cross_counter" id="lowbarCounter">0</a><br>
@@ -305,8 +306,8 @@
                		</tr>
                 </table>
                 
-                <button onclick="Penalty('penalty');">Penalty</button>
-                <button onclick="Penalty('technical');">Technical Foul</button>
+                <button onclick="Penalty('penalty','end');">Penalty</button>
+                <button onclick="Penalty('technical','end');">Technical Foul</button>
                 <br>
                 <a>Penalties :  </a><a id="penalty_display3">0</a>
                 <br>
@@ -316,7 +317,7 @@
             </div>
             
             <div id="EndSliders">
-               Climb Speed :  
+               Capture/Scale Speed :  
                <a id="end_climb_speed_display">0</a> seconds
                <div id="slider">
                    <input class="bar" type="range" id ="climb_speed" name="climb_speed" min="0" max="20" value ="0" onchange="update_data();">

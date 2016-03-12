@@ -25,8 +25,12 @@ function goal_t(high, low, points, high_points, low_points)
 /* global variables */
 
 /* Penalty Variables */
-var penalty = 0;
-var technical = 0;
+var penalty_auto = 0;
+var technical_auto = 0;
+var penalty_tele = 0;
+var technical_tele = 0;
+var penalty_end = 0;
+var technical_end = 0;
 
 var penalty_stack = new Array();
 
@@ -44,6 +48,7 @@ tele_goals[1] = new goal_t(0,0,0,0,0);
 
 var tele_front_court = 0;
 var tele_full_court = 0;
+var tele_corner = 0;
 var tele_human_loading = 0;    
 var tele_floor_loading = 0;
 
@@ -58,6 +63,8 @@ var tele_cross_stack = new Array();
 
 /* end game */
 var end_climb_speed = 0;
+
+var unsubmittedData = new Array();
 
 /******************************************************************************
  * Internal Functions
@@ -76,6 +83,7 @@ function update_data()
     /* teleop data */
         tele_front_court = document.frm_shooting_location.shooting_location[0];
         tele_full_court = document.frm_shooting_location.shooting_location[1];
+        tele_corner = document.frm_shooting_location.shooting_location[2];
         
         tele_driving = document.getElementById('driving_ability').value;
         tele_robot_block = document.getElementById('robot_block').value;
@@ -172,12 +180,12 @@ function disp_update()
     }
     
     /* penalty */
-    document.getElementById("penalty_display1").innerHTML = penalty;
-    document.getElementById("technical_display1").innerHTML = technical;
-    document.getElementById("penalty_display2").innerHTML = penalty;
-    document.getElementById("technical_display2").innerHTML = technical;
-    document.getElementById("penalty_display3").innerHTML = penalty;
-    document.getElementById("technical_display3").innerHTML = technical;
+    document.getElementById("penalty_display1").innerHTML = penalty_auto;
+    document.getElementById("technical_display1").innerHTML = technical_auto;
+    document.getElementById("penalty_display2").innerHTML = penalty_tele;
+    document.getElementById("technical_display2").innerHTML = technical_tele;
+    document.getElementById("penalty_display3").innerHTML = penalty_end;
+    document.getElementById("technical_display3").innerHTML = technical_end;
 }
 
 /*
@@ -252,20 +260,45 @@ function score_change(period, status, goal, change)
 /*
  * Asses a penalty
  */
-function new_penalty(type)
+function new_penalty(type, period)
 {
-    switch(type)
+    switch(period)
     {
-        case 'penalty':
-            penalty =++ penalty;
-            penalty_stack.push('penalty');
+        case 'auto':
+            switch(type)
+            {
+                case 'penalty':
+                    penalty_auto++;
+                    break;
+                case 'technical':
+                    technical_auto++;
+                    break;
+            }
             break;
-        case 'technical':
-            technical =++ technical;
-            penalty_stack.push('technical');
+        case 'tele':
+            switch(type)
+            {
+                case 'penalty':
+                    penalty_tele++;
+                    break;
+                case 'technical':
+                    technical_tele++;
+                    break;
+            }
+            break;
+        case 'end':
+            switch(type)
+            {
+                case 'penalty':
+                    penalty_end++;
+                    break;
+                case 'technical':
+                    technical_end++;
+                    break;
+            }
             break;
     }
-    
+    penalty_stack.push([type,period]);
 }
 
 /*
@@ -320,6 +353,7 @@ function save_data()
     matchData += e.options[e.selectedIndex].text + ",";
     matchData += (document.getElementById("Front_shoot").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("Full_shoot").checked ? "T" : "F") + ",";
+    matchData += (document.getElementById("Corner_shoot").checked ? "T" : "F") + ",";
     matchData += document.getElementById("tele_high_pts_display").innerHTML + ",";
     matchData += document.getElementById("tele_high_miss_display").innerHTML + ",";
     matchData += document.getElementById("tele_low_pts_display").innerHTML + ",";
@@ -351,8 +385,12 @@ function save_data()
     matchData += (document.getElementById("capture_success").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("scale_attempt").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("scale_success").checked ? "T" : "F") + ",";
-    matchData += penalty + ",";
-    matchData += technical + ",";
+    matchData += penalty_auto + ",";
+    matchData += technical_auto + ",";
+    matchData += penalty_tele + ",";
+    matchData += technical_tele + ",";
+    matchData += penalty_end + ",";
+    matchData += technical_end + ",";
     matchData += overallrating = document.getElementById("Overall_Rating").value + ",";   
     var comments = document.getElementById("Comments").value;
     comments = comments.replace(",","_"); //Get rid of commas so we don't mess up CSV
@@ -364,6 +402,8 @@ function save_data()
     else
         localStorage.setItem("MatchData",existingData + matchData);
     document.getElementById("HistoryCSV").value = localStorage.getItem("MatchData");
+
+    Server_Submit(matchData);
 }
 
 //Clears all data in the form.  
@@ -385,16 +425,27 @@ function reset_form()
     tele_score_stack = new Array();
     document.getElementById("Front_shoot").checked = false;
     document.getElementById("Full_shoot").checked = false;
+    document.getElementById("Corner_shoot").checked = false;
     tele_goals[0] = new goal_t(0,0,0,0,0);
     tele_goals[1] = new goal_t(0,0,0,0,0);
     tele_front_court = 0;
     tele_full_court = 0;
+    tele_corner = 0;
     tele_human_loading = 0;    
     tele_driving = 0;
     tele_robot_block = 0;
     tele_robot_block_time = 0;
     tele_crossings = [0,0,0,0,0,0,0,0,0];
     tele_cross_stack = new Array();
+    document.getElementById("stuck_cull").checked = false;
+    document.getElementById("stuck_drawbridge").checked = false;
+    document.getElementById("stuck_fris").checked = false;
+    document.getElementById("stuck_moat").checked = false;
+    document.getElementById("stuck_ramp").checked = false;
+    document.getElementById("stuck_rock").checked = false;
+    document.getElementById("stuck_sally").checked = false;
+    document.getElementById("stuck_terrain").checked = false;
+    document.getElementById("stuck_lowbar").checked = false;
     document.getElementById("driving_ability").value = 0;
     document.getElementById("robot_block").value = 0;
     document.getElementById("robot_block_time").value = 0;
@@ -407,8 +458,12 @@ function reset_form()
     
     
     penalty_stack = new Array();
-    penalty = 0;
-    technical = 0;
+    penalty_auto = 0;
+    technical_auto = 0;
+    penalty_tele = 0;
+    technical_tele = 0;
+    penalty_end = 0;
+    technical_end = 0;
     document.getElementById("Overall_Rating").value = 0;
     document.getElementById("Comments").value="";
     
@@ -455,9 +510,9 @@ function Robot_Climb()
 /*
  * Penalty comitted
  */
-function Penalty(type)
+function Penalty(type,period)
 {
-    new_penalty(type);
+    new_penalty(type,period);
  
     /* update point totals */
     update_data();
@@ -491,13 +546,38 @@ function Undo_Penalty()
 {
     if(penalty_stack.length > 0)
     {
-        var type = penalty_stack.pop();
-        switch(type)
+        var p = penalty_stack.pop();
+        var type = p[0];
+        var period = p[1];
+        switch(period)
         {
-        case 'penalty':
-            penalty--; break;
-        case 'technical':
-            technical--; break;
+            case 'auto':
+                switch(type)
+                {
+                case 'penalty':
+                    penalty_auto--; break;
+                case 'technical':
+                    technical_auto--; break;
+                }
+                break;
+            case 'tele':
+                switch(type)
+                {
+                case 'penalty':
+                    penalty_tele--; break;
+                case 'technical':
+                    technical_tele--; break;
+                }
+                break;
+            case 'end':
+                switch(type)
+                {
+                case 'penalty':
+                    penalty_end--; break;
+                case 'technical':
+                    technical_end--; break;
+                }
+                break;
         }
     }
     update_data();
@@ -561,4 +641,33 @@ function Clear_History()
     {
         document.getElementById("history_password").value = "Incorrect Password";
     }
+}
+
+function Server_Submit(matchData)
+{
+    var xmlhttp = new XMLHttpRequest();
+
+    var sendData = "matchData=";
+    sendData += matchData;
+
+    xmlhttp.onreadystatechange = function()
+    {
+        if(xmlhttp.readyState == 4)
+        {
+            if(xmlhttp.status == 200)
+            {
+                if(unsubmittedData.length > 0)
+                    Server_Submit(unsubmittedData.pop());
+                return;
+            }
+            else
+            {
+                alert("Error submitting data - check that server is up!");
+                unsubmittedData.push(matchData);
+            }
+        }
+    };
+
+    xmlhttp.open("GET", "logMatches.php?" + sendData, true);
+    xmlhttp.send();
 }
