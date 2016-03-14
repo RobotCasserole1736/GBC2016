@@ -361,7 +361,6 @@ function save_data()
     matchData += tele_driving + ",";
     matchData += tele_robot_block + ",";
     matchData += tele_robot_block_time + ",";
-    matchData += end_climb_speed + ",";
     matchData += document.getElementById("cullCounter").innerHTML + ",";
     matchData += (document.getElementById("stuck_cull").checked ? "T" : "F") + ",";
     matchData += document.getElementById("drawbridgeCounter").innerHTML + ",";
@@ -385,6 +384,7 @@ function save_data()
     matchData += (document.getElementById("capture_success").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("scale_attempt").checked ? "T" : "F") + ",";
     matchData += (document.getElementById("scale_success").checked ? "T" : "F") + ",";
+    matchData += end_climb_speed + ",";
     matchData += penalty_auto + ",";
     matchData += technical_auto + ",";
     matchData += penalty_tele + ",";
