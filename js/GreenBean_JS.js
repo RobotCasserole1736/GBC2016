@@ -341,60 +341,111 @@ function new_defense_cross(type)
 
 function save_data()
 {
-    var matchData = document.getElementById("scout_name_in").value + ",";
-    matchData += document.getElementById("team_number_in").value + ",";
-    matchData += document.getElementById("match_number_in").value + ",";
-    matchData += document.getElementById("match_type").value + ",";
-    matchData += (document.getElementById("spy").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("DroveToDefense").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("auto_pts_display").innerHTML + ",";
-    matchData += document.getElementById("auto_miss_display").innerHTML + ",";
+    var matchData = "";
+    ScoutName = document.getElementById("scout_name_in").value;
+    matchData += ScoutName + ",";
+    TeamNumber = document.getElementById("team_number_in").value;
+    matchData += TeamNumber + ",";
+    MatchNumber = document.getElementById("match_number_in").value;
+    matchData += MatchNumber + ",";
+    MatchType = document.getElementById("match_type").value;
+    matchData += MatchType + ",";
+    StartedSpy = (document.getElementById("spy").checked ? "T" : "F");
+    matchData += StartedSpy + ",";
+    DroveToDefense = (document.getElementById("DroveToDefense").checked ? "T" : "F");
+    matchData += DroveToDefense + ",";
+    AutoPtsScored = document.getElementById("auto_pts_display").innerHTML;
+    matchData += AutoPtsScored + ",";
+    AutoPtsMissed = document.getElementById("auto_miss_display").innerHTML;
+    matchData += AutoPtsMissed + ",";
     var e = document.getElementById("AutoDefenseCrossed");
-    matchData += e.options[e.selectedIndex].text + ",";
-    matchData += (document.getElementById("Front_shoot").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("Full_shoot").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("Corner_shoot").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("tele_high_pts_display").innerHTML + ",";
-    matchData += document.getElementById("tele_high_miss_display").innerHTML + ",";
-    matchData += document.getElementById("tele_low_pts_display").innerHTML + ",";
-    matchData += document.getElementById("tele_low_miss_display").innerHTML + ",";
-    matchData += tele_driving + ",";
-    matchData += tele_robot_block + ",";
-    matchData += tele_robot_block_time + ",";
-    matchData += document.getElementById("cullCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_cull").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("drawbridgeCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_drawbridge").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("frisCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_fris").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("moatCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_moat").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("rampCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_ramp").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("rockCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_rock").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("sallyCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_sally").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("terrainCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_terrain").checked ? "T" : "F") + ",";
-    matchData += document.getElementById("lowbarCounter").innerHTML + ",";
-    matchData += (document.getElementById("stuck_lowbar").checked ? "T" : "F") + ",";
+    AutoDefenseCrossed = e.options[e.selectedIndex].text;
+    matchData += AutoDefenseCrossed + ",";
+    ShootsNearBatter = (document.getElementById("Front_shoot").checked ? "T" : "F");
+    matchData += ShootsNearBatter + ",";
+    ShootsOuterWorks = (document.getElementById("Full_shoot").checked ? "T" : "F");
+    matchData += ShootsOuterWorks + ",";
+    ShootsCorner = (document.getElementById("Corner_shoot").checked ? "T" : "F");
+    matchData += ShootsCorner + ",";
+    TeleHighPtsScored = document.getElementById("tele_high_pts_display").innerHTML;
+    matchData += TeleHighPtsScored + ",";
+    TeleHighPtsMissed = document.getElementById("tele_high_miss_display").innerHTML;
+    matchData += TeleHighPtsMissed + ",";
+    TeleLowPtsScored = document.getElementById("tele_low_pts_display").innerHTML;
+    matchData += TeleLowPtsScored + ",";
+    TeleLowPtsMissed = document.getElementById("tele_low_miss_display").innerHTML;
+    matchData += TeleLowPtsMissed + ",";
+    DrivingAbility = tele_driving;
+    matchData += TeleDriving + ",";
+    DefenseEffectiveness = tele_robot_block;
+    matchData += DefenseEffectiveness + ",";
+    DefenseTime = tele_robot_block_time;
+    matchData += DefenseTime + ",";
+    PortcullisCrossCount = document.getElementById("cullCounter").innerHTML;
+    matchData += PortcullisCrossCount + ",";
+    PortcullisStuck = (document.getElementById("stuck_cull").checked ? "T" : "F");
+    matchData += PortcullisStuck + ",";
+    DrawbridgeCrossCount = document.getElementById("drawbridgeCounter").innerHTML;
+    matchData += DrawbridgeCrossCount + ",";
+    DrawbridgeStuck = (document.getElementById("stuck_drawbridge").checked ? "T" : "F");
+    matchData += DrawbridgeStuck + ",";
+    ChevalCrossCount = document.getElementById("frisCounter").innerHTML;
+    matchData += ChevalCrossCount + ",";
+    ChevalStuck = (document.getElementById("stuck_fris").checked ? "T" : "F");
+    matchData += ChevalStuck + ",";
+    MoatCrossCount = document.getElementById("moatCounter").innerHTML;
+    matchData += MoatCrossCount + ",";
+    MoatStuck = (document.getElementById("stuck_moat").checked ? "T" : "F");
+    matchData += MoatStuck + ",";
+    RampartsCrossCount = document.getElementById("rampCounter").innerHTML;
+    matchData += RampCrossCount + ",";
+    RampartsStuck = (document.getElementById("stuck_ramp").checked ? "T" : "F");
+    matchData += RampStuck + ",";
+    RockwallCrossCount = document.getElementById("rockCounter").innerHTML;
+    matchData += RockwallCrossCount + ",";
+    RockwallStuck = (document.getElementById("stuck_rock").checked ? "T" : "F");
+    matchData += RockwallStuck + ",";
+    SallyCrossCount = document.getElementById("sallyCounter").innerHTML;
+    matchData += SallyCrossCount + ",";
+    SallyStuck = (document.getElementById("stuck_sally").checked ? "T" : "F");
+    matchData += SallyStuck + ",";
+    RoughCrossCount = document.getElementById("terrainCounter").innerHTML;
+    matchData += RoughCrossCount + ",";
+    RoughStuck = (document.getElementById("stuck_terrain").checked ? "T" : "F");
+    matchData += RoughStuck + ",";
+    LowbarCrossCount = document.getElementById("lowbarCounter").innerHTML;
+    matchData += LowbarCrossCount + ",";
+    LowbarStuck = (document.getElementById("stuck_lowbar").checked ? "T" : "F");
+    matchData += LowbarStuck + ",";
     
-    matchData += (document.getElementById("capture_attempt").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("capture_success").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("scale_attempt").checked ? "T" : "F") + ",";
-    matchData += (document.getElementById("scale_success").checked ? "T" : "F") + ",";
-    matchData += end_climb_speed + ",";
-    matchData += penalty_auto + ",";
-    matchData += technical_auto + ",";
-    matchData += penalty_tele + ",";
-    matchData += technical_tele + ",";
-    matchData += penalty_end + ",";
-    matchData += technical_end + ",";
-    matchData += overallrating = document.getElementById("Overall_Rating").value + ",";   
+    CaptureAttempt = (document.getElementById("capture_attempt").checked ? "T" : "F");
+    matchData += CaptureAttempt + ",";
+    CaptureSuccess = (document.getElementById("capture_success").checked ? "T" : "F");
+    matchData += CaptureSuccess + ",";
+    ScaleAttempt = (document.getElementById("scale_attempt").checked ? "T" : "F");
+    matchData += ScaleAttempt + ",";
+    ScaleSuccess = (document.getElementById("scale_success").checked ? "T" : "F");
+    matchData += ScaleSuccess + ",";
+    ClimbSpeed = end_climb_speed;
+    matchData += ClimbSpeed + ",";
+    PenaltiesAuto = penalty_auto;
+    matchData += PenaltiesAuto + ",";
+    TechnicalsAuto = technical_auto;
+    matchData += TechnicalsAuto + ",";
+    PenaltiesTele = penalty_tele;
+    matchData += PenaltiesTele + ",";
+    TechnicalsTele = technical_tele;
+    matchData += TechnicalsTele + ",";
+    PenaltiesEnd = penalty_end;
+    matchData += PenaltiesEnd + ",";
+    TechnicalsEnd = technical_end;
+    matchData += TechnicalsEnd + ",";
+    OverallRank = overallrating = document.getElementById("Overall_Rating").value;   
+    matchData += OverallRank + ",";
     var comments = document.getElementById("Comments").value;
     comments = comments.replace(/,/g,"_"); //Get rid of commas so we don't mess up CSV
     comments = comments.replace("\n","   ");
+    Comments = comments;
     matchData += comments + "\n";
     var existingData = localStorage.getItem("MatchData");
     if(existingData == null)
@@ -403,8 +454,15 @@ function save_data()
         localStorage.setItem("MatchData",existingData + matchData);
     document.getElementById("HistoryCSV").value = localStorage.getItem("MatchData");
 
-    Server_Submit(matchData);
-}
+    Server_Submit(ScoutName, TeamNumber, MatchNumber, MatchType, StartedSpy, DroveToDefense,
+        AutoPtsScored, AutoPtsMissed, AutoDefenseCrossed, ShootsNearBatter, ShootsOuterWorks,
+        ShootsCorner, TeleHighPtsScored, TeleHighPtsMissed, TeleLowPtsScored, TeleLowPtsMissed,
+        DrivingAbility, DefenseEffectiveness, DefenseTime, PortcullisCrossCount, PortcullisStuck,
+        ChevalCrossCount, ChevalStuck, MoatCrossCount, MoatStuck, RampartsCrossCount, RampartsStuck,
+        DrawbridgeCrossCount, DrawbridgeStuck, SallyCrossCount, SallyStuck, RockwallCrossCount,
+        RockwallStuck, RoughCrossCount, RoughStuck, LowbarCrossCount, LowbarStuck, CaptureAttempt,
+        CaptureSuccess, ScaleAttempt, ScaleSuccess, ClimbSpeed, PenaltiesAuto, TechnicalsAuto,
+        PenaltiesTele, TechnicalsTele, PenaltiesEnd, TechnicalsEnd, OverallRank, Comments)
 
 //Clears all data in the form.  
 //Do not call this unless it is ok to actually clear all data.
@@ -643,13 +701,40 @@ function Clear_History()
     }
 }
 
-function Server_Submit(matchData)
+function Server_Submit(ScoutName, TeamNumber, MatchNumber, MatchType, StartedSpy, DroveToDefense,
+        AutoPtsScored, AutoPtsMissed, AutoDefenseCrossed, ShootsNearBatter, ShootsOuterWorks,
+        ShootsCorner, TeleHighPtsScored, TeleHighPtsMissed, TeleLowPtsScored, TeleLowPtsMissed,
+        DrivingAbility, DefenseEffectiveness, DefenseTime, PortcullisCrossCount, PortcullisStuck,
+        ChevalCrossCount, ChevalStuck, MoatCrossCount, MoatStuck, RampartsCrossCount, RampartsStuck,
+        DrawbridgeCrossCount, DrawbridgeStuck, SallyCrossCount, SallyStuck, RockwallCrossCount,
+        RockwallStuck, RoughCrossCount, RoughStuck, LowbarCrossCount, LowbarStuck, CaptureAttempt,
+        CaptureSuccess, ScaleAttempt, ScaleSuccess, ClimbSpeed, PenaltiesAuto, TechnicalsAuto,
+        PenaltiesTele, TechnicalsTele, PenaltiesEnd, TechnicalsEnd, OverallRank, Comments)
 {
     var xmlhttp = new XMLHttpRequest();
+    Comments.replace("&","and");
+    var sendData = "ScoutName=" + ScoutName + "&TeamNumber=" + TeamNumber + "&MatchNumber=" + MatchNumber +
+        "&MatchType=" + MatchType + "&StartedSpy=" + StartedSpy + "&DroveToDefense=" + DroveToDefense + 
+        "&AutoPtsScored=" + AutoPtsScored + "&AutoPtsMissed=" + AutoPtsMissed + "&AutoDefenseCrossed=" +
+        AutoDefenseCrossed + "&ShootsNearBatter=" + ShootsNearBatter + "&ShootsOuterWorks=" + ShootsOuterWorks +
+        "&ShootsCorner=" + ShootsCorner + "&TeleHighPtsScored=" + TeleHighPtsScored + "&TeleHighPtsMissed=" +
+        TeleHighPtsMissed + "&TeleLowPtsScored=" + TeleLowPtsScored + "&TeleLowPtsMissed=" + TeleLowPtsMissed +
+        "&DrivingAbility=" + DrivingAbility + "&DefenseEffectiveness=" + DefenseEffectiveness + "&DefenseTime=" +
+        DefenseTime + "&PortcullisCrossCount=" + PortcullisCrossCount + "&PortcullisStuck=" + PortcullisStuck +
+        "&ChevalCrossCount=" + ChevalCrossCount + "&ChevalStuck=" + ChevalStuck + "&MoatCrossCount=" + 
+        MoatCrossCount + "&MoatStuck=" + MoatStuck + "&RampartsCrossCount=" + RampartsCrossCount + 
+        "&RampartsStuck=" + RampartsStuck + "&RoughCrossCount=" + RoughCrossCount + "&RoughStuck=" + RoughStuck +
+        "&LowbarCrossCount=" + LowbarCrossCount + "&LowbarStuck=" + LowbarStuck + "&CaptureAttempt=" + 
+        CaptureAttempt + "&CaptureSuccess=" + CaptureSuccess + "&ScaleAttempt=" + ScaleAttempt + "&ScaleSuccess=" +
+        ScaleSuccess + "&ClimbSpeed=" + ClimbSpeed + "&PenaltiesAuto=" + PenaltiesAuto + "&TechnicalsAuto=" + 
+        TechnicalsAuto + "&PenaltiesTele=" + PenaltiesTele + "&TechnicalsTele=" + TechnicalsTele + "&PenaltiesEnd=" + 
+        PenaltiesEnd + "&TechnicalsEnd=" + TechnicalsEnd + "&OverallRank=" + OverallRank + "&Comments=" + Comments;
 
-    var sendData = "matchData=";
-    sendData += matchData;
+    Server_Submit_PostData(sendData);
+}
 
+function Server_Submit_GetData(getData)
+{
     xmlhttp.onreadystatechange = function()
     {
         if(xmlhttp.readyState == 4)
@@ -663,11 +748,11 @@ function Server_Submit(matchData)
             else
             {
                 alert("Error submitting data - check that server is up!");
-                unsubmittedData.push(matchData);
+                unsubmittedData.push(getData);
             }
         }
     };
 
-    xmlhttp.open("GET", "logMatches.php?" + sendData, true);
+    xmlhttp.open("GET", "logMatches.php?" + getData, true);
     xmlhttp.send();
 }
